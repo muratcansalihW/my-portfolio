@@ -63,6 +63,16 @@ const projects: Project[] = [
     demo: "https://main--muratcan-osa.netlify.app/",
     github: "https://github.com/muratcansalihW/osa",
   },
+  {
+    title: "Subscription Manager",
+    subtitle: "Subscription tracking dashboard",
+    description:
+      "A modern subscription management dashboard where users can add, remove, toggle and categorize their monthly or yearly subscriptions. Features include LocalStorage persistence, active/passive status, real-time monthly cost calculation, responsive UI and custom design built with pure CSS.",
+    tech: "React · Vite · JavaScript · CSS",
+    image: "/thumb_image/subscription-manager.png",
+    demo: "https://subscription-management-tau.vercel.app/",
+    github: "https://github.com/muratcansalihW/subscription_management",
+  },
 ];
 
 export default function Projects() {
