@@ -7,15 +7,12 @@ import { useState, useRef, useEffect } from "react";
 
 export default function Contact() {
   const [open, setOpen] = useState(false);
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   // Click outside to close
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !(menuRef.current as HTMLElement).contains(e.target as Node)
-      ) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
@@ -31,7 +28,7 @@ export default function Contact() {
 
     const link = document.createElement("a");
     link.href = file;
-    link.download = file.split("/").pop()!;
+    link.download = file.split("/").pop() || "cv.pdf";
     link.click();
     setOpen(false);
   };
@@ -53,7 +50,7 @@ export default function Contact() {
       </p>
 
       <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
-        {/* Email Button */}
+        {/* Email + CV */}
         <div className="flex flex-col gap-3 md:flex-row">
           <a
             href="mailto:muratcansalih3@hotmail.com"
@@ -65,7 +62,11 @@ export default function Contact() {
           {/* Download CV - Language Selector */}
           <div className="relative" ref={menuRef}>
             <button
-              onClick={() => setOpen(!open)}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen((prev) => !prev);
+              }}
               className="px-6 py-3 rounded-full border border-blue-400 text-blue-300 
               hover:bg-blue-500 hover:text-white transition font-medium flex items-center gap-2"
             >
@@ -74,7 +75,16 @@ export default function Contact() {
             </button>
 
             {open && (
-              <div className="absolute left-0 mt-2 w-40 bg-[#1e293b] border border-blue-400 rounded-lg overflow-hidden shadow-lg">
+              <div
+                className="
+                  absolute left-1/2 -translate-x-1/2 
+                  bottom-full mb-2
+                  w-44 bg-[#1e293b] border border-blue-400 
+                  rounded-xl overflow-hidden shadow-xl
+                  text-sm
+                "
+                onClick={(e) => e.stopPropagation()}
+              >
                 <button
                   onClick={() => handleDownload("en")}
                   className="w-full px-4 py-2 hover:bg-blue-500 hover:text-white transition text-left"
